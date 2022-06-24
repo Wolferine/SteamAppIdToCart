@@ -25,15 +25,14 @@ try:
     size = len(appIds)
     while count < size:
         appId = appIds[count]
-        
         count += 1
-        if failStreak > 10:
-            print("To many fails. Sleeping for 5 minutes.")
+
+        if failStreak > 5:
+            print("To many fails. Sleeping for 1 minute.")
             print(ids)
-            f.close()
-            time.sleep(300)
-            f = open('out.txt', 'a')
-            count =- 10
+            f.flush()
+            time.sleep(60)
+            count -= failStreak
             failStreak = 0
             continue
             
@@ -80,6 +79,7 @@ try:
         else:
             print("added")
         f.write(str(pck[0]) + "," + "\n")
+        f.flush()
         ids.append(pck[0])
         failStreak = 0
     print(ids)
