@@ -1,3 +1,4 @@
+//insert list here [y,x,z] int
 var listToAdd = [];
 window.onload = function() {
 
