@@ -89,6 +89,7 @@ except:
     print("Early termination")
     print(ids)
 
-f.close()
+finally:
+    f.close()
 print("done")
 input("Press Enter to close.")
