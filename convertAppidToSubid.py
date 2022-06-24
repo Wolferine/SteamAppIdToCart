@@ -4,20 +4,21 @@ import requests
 
 appIds = []
 
-with open('in.txt', 'r') as f:
-    lines = f.readlines()
-    for line in lines:
-        line = line.strip()
-        lineData = line.split(',')
-        for i in lineData:
-            i.strip()
-            appIds.append(i)
-
-print("done importing appIds")
-
 
 ids = []
 try:
+
+    with open('in.txt', 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            line = line.strip()
+            lineData = line.split(',')
+            for i in lineData:
+                i.strip()
+                appIds.append(i)
+
+    print("done importing appIds")
+
     f = open('out.txt', 'w')
     count = 0
     failStreak = 0
@@ -29,7 +30,9 @@ try:
         if failStreak > 10:
             print("To many fails. Sleeping for 5 minutes.")
             print(ids)
+            f.close()
             time.sleep(300)
+            f = open('out.txt', 'a')
             count =- 10
             failStreak = 0
             continue
@@ -76,7 +79,7 @@ try:
             print("multiple packages found for appId: " + appId + ", adding only first. " + pck.__str__())
         else:
             print("added")
-        f.write(str(pck[0]) + "\n")
+        f.write(str(pck[0]) + "," + "\n")
         ids.append(pck[0])
         failStreak = 0
     print(ids)
@@ -87,3 +90,5 @@ except:
     print(ids)
 
 f.close()
+print("done")
+input("Press Enter to close.")
